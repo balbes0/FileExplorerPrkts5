@@ -1,0 +1,44 @@
+﻿<Window x:Class="FileExplorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileExplorer"
+        xmlns:viewModels="clr-namespace:FileExplorer.ViewModel"
+        mc:Ignorable="d"
+        Title="File Explorer" Height="450" Width="800"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding NavigateBackCommand}" Content="Назад"/>
+            <Button Grid.Column="1" Command="{Binding OpenDirectoryCommand}" Content="Открыть"/>
+            <Button Grid.Column="2" Command="{Binding RenameFileCommand}">Изменить</Button>
+            <Button Grid.Column="3" Command="{Binding DeleteCommand}">Удалить</Button>
+            <Button Grid.Column="4" Command="{Binding CreateFileCommand}">Создать</Button>
+        </Grid>
+        <ListView ItemsSource="{Binding Files}" Margin="10" Grid.Row="1" SelectedItem="{Binding Selected}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding Path}" Width="500"/>
+                </GridView>
+            </ListView.View>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding OpenDirectoryCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+    </Grid>
+</Window>
